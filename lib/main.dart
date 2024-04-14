@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:car_tracker/widgets/app_bar.dart';
 import 'package:car_tracker/widgets/custom_btn.dart';
 
+import 'package:car_tracker/repository/data_repository.dart';
+
 void main() {
   runApp(const App());
 }
@@ -12,6 +14,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DataRepository().getStoragePermission();
+
     return MaterialApp(
       home: Scaffold(
         appBar: MyAppBar(),
