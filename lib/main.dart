@@ -30,8 +30,8 @@ class App extends StatelessWidget {
                     label: Text('Home Page'),
                   ),
                   NavigationRailDestination(
-                    icon: Icon(Icons.add_box_outlined),
-                    selectedIcon: Badge(child: Icon(Icons.add_box_rounded)),
+                    icon: Icon(Icons.settings_outlined),
+                    selectedIcon: Badge(child: Icon(Icons.settings_rounded)),
                     label: Text('Second'),
                   ),
                 ],
@@ -41,6 +41,7 @@ class App extends StatelessWidget {
                 child: Center(
                   child: SingleChildScrollView(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           width: 500,
