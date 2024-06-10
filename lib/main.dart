@@ -54,6 +54,7 @@ class App extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text("10"),
                                       Icon(Icons.euro),
