@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:car_tracker/widgets/app_bar.dart';
@@ -20,33 +21,57 @@ class App extends StatelessWidget {
         body: SafeArea(
           child: Row(
             children: [
-              NavigationRail(destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite_border),
-                  selectedIcon: Icon(Icons.favorite),
-                  label: Text('First'),
-                ),
-                NavigationRailDestination(
-                  icon: Badge(child: Icon(Icons.bookmark_border)),
-                  selectedIcon: Badge(child: Icon(Icons.book)),
-                  label: Text('Second'),
-                ),
-                NavigationRailDestination(
-                  icon: Badge(
-                    label: Text('4'),
-                    child: Icon(Icons.star_border),
+              NavigationRail(
+                selectedIndex: 0,
+                destinations: const [
+                   NavigationRailDestination(
+                    icon: Icon(Icons.home_rounded),
+                    selectedIcon: Icon(Icons.home_rounded),
+                    label: Text('Home Page'),
                   ),
-                  selectedIcon: Badge(
-                    label: Text('4'),
-                    child: Icon(Icons.star),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.add_box_outlined),
+                    selectedIcon: Badge(child: Icon(Icons.add_box_rounded)),
+                    label: Text('Second'),
                   ),
-                  label: Text('Third'),
-                ),
-              ], selectedIndex: 0, minWidth: 60,),
-              VerticalDivider(),
+                ],
+              ),
+              const VerticalDivider(),
               Expanded(
                 child: Center(
-                  child: Text("I'm at the center"),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 500,
+                          decoration: BoxDecoration(
+                            color: Colors.deepPurple.shade600.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: const Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Text("10"),
+                                      Icon(Icons.euro),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Text("Hello"),
+                                  flex: 3,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ),
                 )
               ),
             ],
