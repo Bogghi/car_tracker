@@ -14,38 +14,41 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DataRepository().getStoragePermission();
-
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: MyAppBar(),
-        body: Container(
-          color: Colors.black,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                child: Text(""),
-              )
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          height: 90,
-          elevation: 0,
-          color: Colors.black87,
+        body: SafeArea(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomBtn(
-                child:
-                const Icon(
-                  Icons.home_rounded,
-                  color: Colors.white,
+              NavigationRail(destinations: [
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite_border),
+                  selectedIcon: Icon(Icons.favorite),
+                  label: Text('First'),
                 ),
-                callback: (){}
-              )
+                NavigationRailDestination(
+                  icon: Badge(child: Icon(Icons.bookmark_border)),
+                  selectedIcon: Badge(child: Icon(Icons.book)),
+                  label: Text('Second'),
+                ),
+                NavigationRailDestination(
+                  icon: Badge(
+                    label: Text('4'),
+                    child: Icon(Icons.star_border),
+                  ),
+                  selectedIcon: Badge(
+                    label: Text('4'),
+                    child: Icon(Icons.star),
+                  ),
+                  label: Text('Third'),
+                ),
+              ], selectedIndex: 0, minWidth: 60,),
+              VerticalDivider(),
+              Expanded(
+                child: Center(
+                  child: Text("I'm at the center"),
+                )
+              ),
             ],
           ),
         ),
