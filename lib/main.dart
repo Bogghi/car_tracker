@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:car_tracker/widgets/app_bar.dart';
-import 'package:car_tracker/widgets/custom_btn.dart';
-
-import 'package:car_tracker/repository/data_repository.dart';
+import 'package:car_tracker/database.dart';
 
 void main() {
-  runApp(const App());
+  runApp(App());
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final database = AppDatabase();
+
+  App({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -69,7 +68,7 @@ class App extends StatelessWidget {
                                     prefixIcon: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 8),
                                       child: TextButton(
-                                        onPressed: (){},
+                                        onPressed: testingDatabase,
                                         style: TextButton.styleFrom(
                                           elevation: 0.0,
                                           backgroundColor: Colors.transparent,
@@ -121,5 +120,18 @@ class App extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void testingDatabase() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
+        title: "todo: sto grandissimo cazzo",
+        content: "Succhiami le palle stronzo"
+    ));
+
+    List<TodoItem> allItems = await database.select(database.todoItems).get();
+
+    print('items in database $allItems');
   }
 }
