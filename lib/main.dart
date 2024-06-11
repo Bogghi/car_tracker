@@ -47,6 +47,8 @@ class App extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const Text("Nuova transazione", style: TextStyle(color: Colors.deepPurple)),
+                            const SizedBox(height: 10,),
                             Container(
                               width: 500,
                               child: Material(
@@ -54,7 +56,7 @@ class App extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20.0),
                                 child: TextField(
                                   decoration: InputDecoration(
-                                    border: OutlineInputBorder(
+                                    border: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(Radius.circular(20.0)),
                                       borderSide: BorderSide.none,
                                     ),
@@ -63,6 +65,17 @@ class App extends StatelessWidget {
                                     hintText: "10 euro buddybank servizi",
                                     hintStyle: TextStyle(
                                       color: Colors.grey.withOpacity(0.5)
+                                    ),
+                                    prefixIcon: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                                      child: TextButton(
+                                        onPressed: (){},
+                                        style: TextButton.styleFrom(
+                                          elevation: 0.0,
+                                          backgroundColor: Colors.transparent,
+                                        ),
+                                        child: const Icon(Icons.add_rounded)
+                                      ),
                                     )
                                   ),
                                 ),
