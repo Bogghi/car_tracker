@@ -20,6 +20,7 @@ class App extends StatelessWidget {
       home: Scaffold(
         body: SafeArea(
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               NavigationRail(
                 selectedIndex: 0,
@@ -38,41 +39,67 @@ class App extends StatelessWidget {
               ),
               const VerticalDivider(),
               Expanded(
-                child: Center(
+                child: Align(
+                  alignment: Alignment.topCenter,
                   child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 500,
-                          decoration: BoxDecoration(
-                            color: Colors.deepPurple.shade600.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: const Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("10"),
-                                      Icon(Icons.euro),
-                                    ],
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 500,
+                              child: Material(
+                                elevation: 4.0,
+                                borderRadius: BorderRadius.circular(20.0),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    fillColor: Colors.deepPurple.shade100.withOpacity(0.5),
+                                    filled: true,
+                                    hintText: "10 euro buddybank servizi",
+                                    hintStyle: TextStyle(
+                                      color: Colors.grey.withOpacity(0.5)
+                                    )
                                   ),
-                                  flex: 1,
                                 ),
-                                Expanded(
-                                  child: Text("Hello"),
-                                  flex: 3,
-                                ),
-                              ],
+                              )
                             ),
-                          ),
+                            const SizedBox(height: 10,),
+                            Container(
+                              width: 500,
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade600.withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child:  Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text("10"),
+                                          Icon(Icons.euro),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text("Hello"),
+                                      flex: 3,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    )
+                      )
                   ),
                 )
               ),
