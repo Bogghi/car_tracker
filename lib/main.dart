@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:car_tracker/database.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(App());
 }
 
 class App extends StatelessWidget {
-  final database = AppDatabase();
+  final AppDB db = AppDB();
+  final TextEditingController controller = TextEditingController();
 
   App({super.key});
 
@@ -54,6 +57,7 @@ class App extends StatelessWidget {
                                 elevation: 4.0,
                                 borderRadius: BorderRadius.circular(20.0),
                                 child: TextField(
+                                  controller: controller,
                                   decoration: InputDecoration(
                                     border: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -68,7 +72,10 @@ class App extends StatelessWidget {
                                     prefixIcon: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 8),
                                       child: TextButton(
-                                        onPressed: testingDatabase,
+                                        onPressed: () async {
+                                          await db.addRow(controller.text);
+                                          await db.getAll();
+                                        },
                                         style: TextButton.styleFrom(
                                           elevation: 0.0,
                                           backgroundColor: Colors.transparent,
@@ -121,17 +128,49 @@ class App extends StatelessWidget {
       ),
     );
   }
+}
 
-  void testingDatabase() async {
-    WidgetsFlutterBinding.ensureInitialized();
+class AppDB {
+  late Database db;
 
-    await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
-        title: "todo: sto grandissimo cazzo",
-        content: "Succhiami le palle stronzo"
-    ));
+  AppDB(){
+    _initDB();
+  }
 
-    List<TodoItem> allItems = await database.select(database.todoItems).get();
+  _initDB() async {
+    final databasePath = await getDatabasesPath();
+    String path = join(databasePath, 'demo.db');
 
-    print('items in database $allItems');
+    await deleteDatabase(path);
+
+    db = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) async {
+        await db.execute("CREATE TABLE Test(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT)");
+      },
+    );
+
+    db.close();
+  }
+
+  addRow(String text) async {
+    db = await openDatabase('demo.db');
+
+    await db.transaction((txt) async {
+      await txt.rawInsert("INSERT INTO Test(name) VALUES (?)", [text]);
+    });
+
+    db.close();
+  }
+  getAll() async {
+    db = await openDatabase('demo.db');
+
+    await db.transaction((txt) async {
+      var list = await txt.rawQuery("SELECT * FROM Test");
+      print(list);
+    });
+
+    db.close();
   }
 }
